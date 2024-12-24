@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 function Users() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);  // Add an error state
+  const [error, setError] = useState(null);
 
   // Fetch data from the API
   useEffect(() => {
@@ -30,7 +30,7 @@ function Users() {
   }
 
   if (error) {
-    return <div className="text-red-500">{error}</div>;  // Display error message
+    return <div className="text-red-500">{error}</div>;
   }
 
   return (
