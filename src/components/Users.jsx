@@ -3,23 +3,34 @@ import React, { useEffect, useState } from "react";
 function Users() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);  // Add an error state
 
   // Fetch data from the API
   useEffect(() => {
     fetch("https://api.escuelajs.co/api/v1/users")
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
       .then((data) => {
         setUsers(data);
         setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching users:", error);
+        setError("Failed to fetch users. Please try again later.");
         setLoading(false);
       });
   }, []);
 
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-red-500">{error}</div>;  // Display error message
   }
 
   return (
